@@ -1,4 +1,4 @@
-/* Typing Effect */
+/* Typing effect */
 const roles=[
   "Ethical Hacker",
   "Founder of Vampire Squad",
@@ -9,19 +9,44 @@ let r=0,c=0,del=false;
 const sub=document.querySelector(".subtitle");
 
 (function type(){
-  const t=roles[r];
-  sub.textContent=del?t.slice(0,c--):t.slice(0,c++);
-  if(!del&&c>t.length+6)del=true;
-  if(del&&c===0){del=false;r=(r+1)%roles.length}
+  const text=roles[r];
+  sub.textContent=del?text.slice(0,--c):text.slice(0,++c);
+  if(!del && c>text.length+6) del=true;
+  if(del && c===0){del=false;r=(r+1)%roles.length;}
   setTimeout(type,del?40:80);
 })();
 
-/* Reveal */
-const secs=document.querySelectorAll(".section");
-const rev=()=>secs.forEach(s=>{
-  if(s.getBoundingClientRect().top<innerHeight-120)s.classList.add("show");
-});
-window.addEventListener("scroll",rev);rev();
+/* GitHub projects */
+const grid=document.getElementById("tools-grid");
+const status=document.getElementById("tools-status");
+
+fetch("https://api.github.com/users/vampiresquad/repos")
+  .then(res=>res.json())
+  .then(repos=>{
+    const list=repos
+      .filter(r=>!r.fork)
+      .sort((a,b)=>b.stargazers_count-a.stargazers_count)
+      .slice(0,6);
+
+    if(!list.length){
+      status.textContent="No public repositories found.";
+      return;
+    }
+
+    list.forEach(repo=>{
+      const card=document.createElement("div");
+      card.className="card";
+      card.innerHTML=`
+        <h3>${repo.name}</h3>
+        <p>${repo.description || "No description provided."}</p>
+        <a href="${repo.html_url}" target="_blank">View on GitHub</a>
+      `;
+      grid.appendChild(card);
+    });
+  })
+  .catch(()=>{
+    status.textContent="Failed to load GitHub projects.";
+  });
 
 /* Terminal */
 const btn=document.getElementById("toggle-terminal");
@@ -31,22 +56,16 @@ const txt=document.getElementById("terminal-text");
 if(btn){
   const lines=[
     "> Initializing Vampire Terminal...",
-    "> Identity confirmed: Muhammad Shourov",
+    "> Identity: Muhammad Shourov",
     "> Role: Ethical Hacker",
     "> Status: Active",
     "> Access granted.",
     "",
     "vampire@shourov:~$"
   ];
-
   btn.onclick=()=>{
-    if(box.style.display==="block"){
-      box.style.display="none";
-      btn.textContent="Open Terminal";
-      return;
-    }
-    box.style.display="block";
-    btn.textContent="Close Terminal";
+    box.style.display=box.style.display==="block"?"none":"block";
+    btn.textContent=box.style.display==="block"?"Close Terminal":"Open Terminal";
     txt.textContent="";
     let i=0;
     (function t(){
