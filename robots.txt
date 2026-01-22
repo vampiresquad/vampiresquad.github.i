@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vampiresquad.github.io/sitemap.xml
+Sitemap: https://vampiresquad.github.io/muhammad-shourov/sitemap.xml
