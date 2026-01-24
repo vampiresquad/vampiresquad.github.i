@@ -1,41 +1,76 @@
-/* ================= SUBTITLE CINEMATIC ROTATION (CLS FREE) ================= */
+/* ================= SUBTITLE TYPING + ICON ANIMATION (CLS FREE) ================= */
 
 const roles = [
-  "Ethical Hacker",
-  "Founder of Vampire Squad",
-  "Cyber Security Consultant",
-  "Writer"
+  {
+    text: "Ethical Hacker",
+    icon: "fa-skull",
+    cls: "icon-hacker"
+  },
+  {
+    text: "Founder of Vampire Squad",
+    icon: "fa-droplet",
+    cls: "icon-cyber"
+  },
+  {
+    text: "Cyber Security Consultant",
+    icon: "fa-shield-halved",
+    cls: "icon-cyber"
+  },
+  {
+    text: "Writer",
+    icon: "fa-pen-nib",
+    cls: "icon-writer"
+  }
 ];
 
 const subtitle = document.querySelector(".subtitle");
 const subtitleText = document.getElementById("subtitle-text");
+const iconWrapper = document.querySelector(".role-icon");
 
 let roleIndex = 0;
+let charIndex = 0;
 
-/*
-  IMPORTANT:
-  - No typing delete
-  - No width/height change
-  - Only fade-out → text swap → fade-in
-*/
-function rotateSubtitle() {
-  subtitle.classList.remove("fade-in");
-  subtitle.classList.add("fade-out");
+/* typing only – NO delete (CLS safe) */
+function typeText() {
+  const role = roles[roleIndex];
 
-  setTimeout(() => {
-    subtitleText.textContent = roles[roleIndex];
-    subtitle.classList.remove("fade-out");
-    subtitle.classList.add("fade-in");
-
-    roleIndex = (roleIndex + 1) % roles.length;
-  }, 450); // fade-out duration
+  if (charIndex <= role.text.length) {
+    subtitleText.textContent = role.text.slice(0, charIndex++);
+    setTimeout(typeText, 90);
+  } else {
+    // pause after full typing
+    setTimeout(switchRole, 1800);
+  }
 }
 
-// initial load
-rotateSubtitle();
+function switchRole() {
+  // fade-out (visual only, no layout change)
+  subtitleText.style.opacity = "0";
 
-// rotation interval
-setInterval(rotateSubtitle, 3200);
+  setTimeout(() => {
+    // move to next role
+    roleIndex = (roleIndex + 1) % roles.length;
+    charIndex = 0;
+
+    // update icon safely
+    iconWrapper.className = `role-icon ${roles[roleIndex].cls}`;
+    iconWrapper.innerHTML = `<i class="fa-solid ${roles[roleIndex].icon}"></i>`;
+
+    // reset text + fade-in
+    subtitleText.textContent = "";
+    subtitleText.style.opacity = "1";
+
+    typeText();
+  }, 450);
+}
+
+/* initial state */
+iconWrapper.className = `role-icon ${roles[0].cls}`;
+iconWrapper.innerHTML = `<i class="fa-solid ${roles[0].icon}"></i>`;
+subtitleText.style.transition = "opacity .4s ease";
+
+/* start typing */
+typeText();
 
 /* ================= GITHUB PROJECTS ================= */
 
