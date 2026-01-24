@@ -88,18 +88,26 @@ if (btn) {
     })();
   };
 }
+/* Cinematic scroll observer */
+const sections = document.querySelectorAll(".section");
+
 const observer = new IntersectionObserver(
   entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         setTimeout(() => {
           entry.target.classList.add("visible");
-        }, 120);
+        }, 220); // cinematic pause
         observer.unobserve(entry.target);
       }
     });
   },
   {
-    threshold: 0.1
+    threshold: 0.12
   }
 );
+
+sections.forEach(section => observer.observe(section));
+
+/* Hero shows instantly */
+document.querySelector(".hero")?.classList.add("visible");
