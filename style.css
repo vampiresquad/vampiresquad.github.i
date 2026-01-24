@@ -241,3 +241,17 @@ footer {
   opacity: .6;
   margin-top: 1rem;
 }
+/* Scroll reveal base state */
+.section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity .8s ease,
+    transform .8s cubic-bezier(.22,1,.36,1);
+}
+
+/* When visible */
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
