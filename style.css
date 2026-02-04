@@ -286,29 +286,53 @@ a {
   opacity: 1;
 }
 
-/* ================= TERMINAL ================= */
-#terminal-box {
-  display: none;
-  margin-top: 1.5rem;
-  background: #020617;
-  border: 1px solid #22d3ee;
-  padding: 1rem;
-  border-radius: 8px;
-  font-family: monospace;
-  font-size: .75rem;
+/* ================= TERMINAL BUTTON PRO ================= */
+
+.btn-terminal {
+  position: relative;
+  padding: 0.9rem 2.2rem;
+  border-radius: 40px;
+  background: rgba(15, 23, 42, 0.9);
   color: #22d3ee;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity .3s ease, transform .3s ease;
-  user-select: none;
+  border: 1px solid rgba(34, 211, 238, 0.4);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow:
+    0 0 10px rgba(34, 211, 238, 0.15),
+    inset 0 0 10px rgba(34, 211, 238, 0.05);
 }
 
-#terminal-box.active {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
+/* Hover Glow */
+.btn-terminal:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 25px rgba(34, 211, 238, 0.4),
+    inset 0 0 15px rgba(34, 211, 238, 0.1);
 }
 
+/* Scan Shine Effect */
+.btn-terminal::before {
+  content: "";
+  position: absolute;
+  width: 40%;
+  height: 200%;
+  top: -50%;
+  left: -60%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(34, 211, 238, 0.5),
+    transparent
+  );
+  transform: rotate(25deg);
+  transition: 0.6s;
+}
+
+.btn-terminal:hover::before {
+  left: 130%;
+}
 /* ================= CONTACT ================= */
 .contact-form {
   max-width: 420px;
