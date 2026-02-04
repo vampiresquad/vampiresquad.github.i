@@ -69,11 +69,7 @@ typeText();
 const grid = document.getElementById("tools-grid");
 const status = document.getElementById("tools-status");
 
-const featuredRepos = [
-  "webtrix",
-  "quicktools",
-  "toolzen"
-];
+const featuredRepos = ["webtrix","quicktools","toolzen"];
 
 const hideRepos = [
   "muhammad_shourov",
@@ -87,182 +83,150 @@ const hideRepos = [
 ];
 
 fetch("https://api.github.com/users/vampiresquad/repos")
-  .then(res => res.json())
-  .then(repos => {
+.then(res => res.json())
+.then(repos => {
 
-    const list = repos
-      .filter(r => !r.fork)
-      .filter(r => !featuredRepos.includes(r.name.toLowerCase()))
-      .filter(r => !hideRepos.includes(r.name.toLowerCase()))
-      .sort((a, b) => b.stargazers_count - a.stargazers_count)
-      .slice(0, 6);
+  const list = repos
+    .filter(r => !r.fork)
+    .filter(r => !featuredRepos.includes(r.name.toLowerCase()))
+    .filter(r => !hideRepos.includes(r.name.toLowerCase()))
+    .sort((a,b)=>b.stargazers_count-a.stargazers_count)
+    .slice(0,6);
 
-    if (!list.length) {
-      status.textContent = "Projects are temporarily unavailable.";
-      return;
-    }
+  if(!list.length){
+    status.textContent="Projects are temporarily unavailable.";
+    return;
+  }
 
-    list.forEach(repo => {
-      const card = document.createElement("div");
-      card.className = "card";
+  list.forEach(repo=>{
+    const card=document.createElement("div");
+    card.className="card";
 
-      card.innerHTML = `
-        <h3>${repo.name}</h3>
-        <p>${repo.description || "No description provided."}</p>
-        <a href="${repo.html_url}" target="_blank">View on GitHub</a>
-      `;
+    card.innerHTML=`
+      <h3>${repo.name}</h3>
+      <p>${repo.description||"No description provided."}</p>
+      <a href="${repo.html_url}" target="_blank">View on GitHub</a>
+    `;
 
-      grid.appendChild(card);
-    });
-
-  })
-  .catch(() => {
-    status.textContent = "Projects are temporarily unavailable.";
+    grid.appendChild(card);
   });
 
-/* ================= TERMINAL (DEEP DARK STORYTELLING VERSION) ================= */
+})
+.catch(()=>{status.textContent="Projects are temporarily unavailable.";});
 
-const btn = document.getElementById("toggle-terminal");
-const box = document.getElementById("terminal-box");
-const txt = document.getElementById("terminal-text");
+/* ================= TERMINAL (ULTRA ENGINE) ================= */
 
-if (btn) {
+const btn=document.getElementById("toggle-terminal");
+const box=document.getElementById("terminal-box");
+const txt=document.getElementById("terminal-text");
 
-  const lines = [
-    "> Boot sequence initiated...",
-    "> Synchronizing system clock...",
-    "> Stabilizing memory sectors...",
-    "> Loading silent execution modules...",
-    "",
-    "> Establishing encrypted environment...",
-    "> Cipher layer engaged [AES-256]",
-    "> Noise suppression filter: Active",
-    "> External interference: Minimal",
-    "",
-    "> Accessing identity vault...",
-    "> Decrypting signature imprint...",
-    "> Verifying behavioral fingerprint...",
-    "> Cross-matching digital shadow...",
-    "",
-    "> Identity Confirmed:",
-    "> Name: Muhammad Shourov",
-    "> Alias: Vampire",
-    "> Origin: Bangladesh",
-    "> Domain: Cyber Security & Ethical Research",
-    "",
-    "> Loading Professional Matrix...",
-    "> Primary Role: Ethical Hacker",
-    "> Secondary Role: Cyber Security Specialist",
-    "> Advisory Role: Digital Risk Awareness",
-    "> Cognitive Extension: Writer & Observer",
-    "",
-    "> Psychological Profile Loaded:",
-    "> Preference: Silence over noise",
-    "> Method: Discipline over chaos",
-    "> Decision Core: Responsibility over comfort",
-    "",
-    "> Memory Reflection:",
-    "> Resources were limited.",
-    "> Shortcuts were absent.",
-    "> Curiosity became the teacher.",
-    "> Mistakes became the curriculum.",
-    "> Silence became the training ground.",
-    "",
-    "> Network Presence Analysis...",
-    "> Public Noise Level: Low",
-    "> Exposure Surface: Controlled",
-    "> Monitoring Mode: Passive Observation",
-    "",
-    "> Threat Philosophy:",
-    "> Not every vulnerability is technical.",
-    "> Most are human.",
-    "> Most are predictable.",
-    "> Most are preventable.",
-    "",
-    "> Ethical Core Loading...",
-    "> Principle 01: Knowledge without ethics is destruction.",
-    "> Principle 02: Access without permission is intrusion.",
-    "> Principle 03: Power without control is chaos.",
-    "",
-    "> Operational Status:",
-    "> Cognitive State: Focused",
-    "> Emotional Noise: Suppressed",
-    "> Awareness Layer: Maximum",
-    "> Execution Mode: Selective",
-    "",
-    '> Personal Log:',
-    '> "Silence is not emptiness.',
-    '> Silence is preparation.',
-    '> Silence is observation.',
-    '> Silence is survival."',
-    "",
-    "> Session Authorized.",
-    "> Passive monitoring enabled.",
-    "> Logging existence...",
-    "",
-    "vampire@shourov:~$"
-  ];
+if(btn){
 
-  let opened = false;
+const lines=[
+{t:"> Boot sequence initiated...",c:"#22d3ee",s:80},
+{t:"> Synchronizing system clock...",c:"#22d3ee",s:80},
+{t:"> Stabilizing memory sectors...",c:"#22d3ee",s:90},
+{t:"> Loading silent execution modules...",c:"#22d3ee",s:90},
 
-  /* Blinking Cursor */
-  const cursor = document.createElement("span");
-  cursor.textContent = "█";
-  cursor.style.marginLeft = "4px";
+{t:"> Establishing encrypted environment...",c:"#06b6d4",s:100},
+{t:"> Cipher layer engaged [AES-256]",c:"#06b6d4",s:110},
 
-  let blink = true;
-  setInterval(() => {
-    cursor.style.opacity = blink ? "1" : "0";
-    blink = !blink;
-  }, 550);
+{t:"> Accessing identity vault...",c:"#22c55e",s:110},
+{t:"> Identity Confirmed: Muhammad Shourov",c:"#22c55e",s:130},
+{t:"> Alias: Vampire",c:"#22c55e",s:130},
 
-  btn.onclick = () => {
+{t:"> Loading Professional Matrix...",c:"#38bdf8",s:110},
+{t:"> Role: Ethical Hacker",c:"#38bdf8",s:120},
+{t:"> Cyber Security Specialist",c:"#38bdf8",s:120},
 
-    box.classList.toggle("active");
+{t:"> Psychological Profile Loaded...",c:"#a78bfa",s:130},
+{t:"> Silence over noise",c:"#a78bfa",s:140},
+{t:"> Discipline over chaos",c:"#a78bfa",s:140},
 
-    btn.textContent = box.classList.contains("active")
-      ? "Close Terminal"
-      : "Open Terminal";
+{t:"> Ethical Core Loaded...",c:"#facc15",s:130},
+{t:"> Knowledge without ethics is destruction.",c:"#facc15",s:150},
 
-    if (opened) return;
-    opened = true;
+{t:'> "Silence is not emptiness."',c:"#e879f9",s:160},
+{t:'> "Silence is preparation."',c:"#e879f9",s:160},
 
-    txt.textContent = "";
-    let i = 0;
+{t:"vampire@shourov:~$",c:"#22d3ee",s:140}
+];
 
-    (function typeTerminal() {
+let opened=false;
 
-      if (i < lines.length) {
-        txt.textContent += lines[i++] + "\n";
-        setTimeout(typeTerminal, 120);
-      } else {
-        txt.appendChild(cursor);
-      }
+/* Cursor */
+const cursor=document.createElement("span");
+cursor.textContent="█";
+cursor.style.marginLeft="4px";
 
-    })();
+let blink=true;
+setInterval(()=>{
+cursor.style.opacity=blink?"1":"0";
+blink=!blink;
+},500);
 
-  };
+btn.onclick=()=>{
+
+box.classList.toggle("active");
+
+btn.textContent=box.classList.contains("active")
+?"Close Terminal"
+:"Open Terminal";
+
+if(opened)return;
+opened=true;
+
+txt.innerHTML="";
+let lineIndex=0;
+
+function typeLine(){
+
+if(lineIndex>=lines.length){
+txt.appendChild(cursor);
+return;
+}
+
+const line=lines[lineIndex];
+const lineEl=document.createElement("div");
+lineEl.style.color=line.c;
+txt.appendChild(lineEl);
+
+let char=0;
+
+function typeChar(){
+if(char<line.t.length){
+lineEl.textContent+=line.t[char++];
+box.scrollTop=box.scrollHeight;
+setTimeout(typeChar,line.s);
+}else{
+lineIndex++;
+setTimeout(typeLine,120);
+}
+}
+
+typeChar();
+}
+
+typeLine();
+
+};
 
 }
 
 /* ================= CINEMATIC SCROLL REVEAL ================= */
 
-const sections = document.querySelectorAll(".section");
+const sections=document.querySelectorAll(".section");
 
-const observer = new IntersectionObserver(
-  entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add("visible");
-        }, 280);
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.1 }
-);
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+setTimeout(()=>{
+entry.target.classList.add("visible");
+},280);
+observer.unobserve(entry.target);
+}
+});
+},{threshold:0.1});
 
-sections.forEach(section => observer.observe(section));
-
+sections.forEach(section=>observer.observe(section));
 document.querySelector(".hero")?.classList.add("visible");
