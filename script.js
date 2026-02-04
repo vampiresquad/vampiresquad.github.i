@@ -64,13 +64,29 @@ subtitleText.style.transition = "opacity .4s ease";
 
 typeText();
 
-/* ================= GITHUB PROJECTS (UPDATED WITH FEATURED FILTER) ================= */
+/* ================= GITHUB PROJECTS (AUTO LOAD + FEATURED + HIDE CONTROL) ================= */
 
 const grid = document.getElementById("tools-grid");
 const status = document.getElementById("tools-status");
 
-/* Featured projects already shown manually in HTML */
-const featuredRepos = ["webtrix", "quicktools", "toolzen"];
+/* Featured (Already shown manually in HTML) */
+const featuredRepos = [
+  "webtrix",
+  "quicktools",
+  "toolzen"
+];
+
+/* Manual Hide List (YOUR LIST) */
+const hideRepos = [
+  "muhammad_shourov",
+  "vampire-blog",
+  "mybot",
+  "paid_approval",
+  "railwaybot",
+  "myquizapp",
+  "quiz-master-infinity",
+  "muhammad-shourov"
+];
 
 fetch("https://api.github.com/users/vampiresquad/repos")
   .then(res => res.json())
@@ -78,8 +94,17 @@ fetch("https://api.github.com/users/vampiresquad/repos")
 
     const list = repos
       .filter(r => !r.fork)
+
+      /* Remove Featured */
       .filter(r => !featuredRepos.includes(r.name.toLowerCase()))
+
+      /* Remove Hidden */
+      .filter(r => !hideRepos.includes(r.name.toLowerCase()))
+
+      /* Sort by Stars */
       .sort((a, b) => b.stargazers_count - a.stargazers_count)
+
+      /* Limit */
       .slice(0, 6);
 
     if (!list.length) {
