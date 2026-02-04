@@ -355,3 +355,19 @@ footer {
   opacity: .6;
   margin-top: 1rem;
 }
+/* FEATURED PROJECTS */
+.featured-title {
+  margin-top: 3rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
+  opacity: .8;
+}
+
+.featured {
+  border: 1px solid rgba(34,211,238,.25);
+  box-shadow: 0 0 18px rgba(34,211,238,.08);
+}
+
+.featured:hover {
+  box-shadow: 0 0 28px rgba(34,211,238,.18);
+}
